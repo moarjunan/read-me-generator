@@ -1,7 +1,7 @@
 
 const fs = require('fs'); 
 const inquirer = require('inquirer'); 
-
+const generateMarkdown = require('./utils/generateMarkdown');
 
 const questions = () => {
     return inquirer.prompt([
@@ -134,12 +134,25 @@ const questions = () => {
 ]);
 };
 
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, err => {
+    err ? console.log(err) : console.log('Successfully created ReadMe.md in Utils folder!')
+    })
+};
 
-// TODO: Create a function to initialize app
-function init() {}
+function init() {
 
-// Function call to initialize app
+    console.log(
+    `
+    Initializing ReadMe Generator......
+    Answer the following questions to create your very own ReadMe!
+    `);
+
+    inquirer.prompt(questions)
+    .then(readmeData => {
+        writeToFile("./utils/readme.md", generateMarkdown(readmeData))
+    })
+};
+
+
 init();
-
-  
