@@ -3,8 +3,7 @@ const fs = require('fs');
 const inquirer = require('inquirer'); 
 const generateMarkdown = require('./utils/generateMarkdown');
 
-const questions = () => {
-    return inquirer.prompt([
+const questions = [
     {
         type: 'input',
         name: 'github',
@@ -131,8 +130,8 @@ const questions = () => {
             }
         }
     }  
-]);
-};
+];
+
 
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, err => {
